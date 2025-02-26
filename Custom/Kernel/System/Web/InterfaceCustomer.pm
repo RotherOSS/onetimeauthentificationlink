@@ -2,9 +2,9 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2021 Rother OSS GmbH, https://otobo.de/
+# Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - b040c799263288a42954e29abb598164fcae2484 - Kernel/System/Web/InterfaceCustomer.pm
+# $origin: otobo - c4729719b9788da163909113055de495fac35df4 - Kernel/System/Web/InterfaceCustomer.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -22,6 +22,7 @@ use strict;
 use warnings;
 
 # core modules
+use Time::HiRes qw();
 
 # CPAN modules
 
@@ -82,8 +83,8 @@ sub new {
     # get debug level
     $Self->{Debug} = $Param{Debug} || 0;
 
-    # performance log
-    $Self->{PerformanceLogStart} = time();
+    # performance log based on high resolution timestamps
+    $Self->{PerformanceLogStart} = Time::HiRes::time();
 
     # register object params
     $Kernel::OM->ObjectParamAdd(
@@ -110,7 +111,7 @@ sub new {
 
 execute the object
 
-    $InterfaceCustomer->Run();
+    $Interface->Run();
 
 =cut
 
@@ -171,7 +172,7 @@ sub Run {
         delete $Param{Lang};
     }
 
-    # Check if the browser sends the SessionID cookie and set the SessionID-cookie
+    # check if the browser sends the SessionID cookie and set the SessionID-cookie
     # as SessionID! GET or POST SessionID have the lowest priority.
     if ( $ConfigObject->Get('SessionUseCookie') ) {
         $Param{SessionIDCookie} = $ParamObject->GetCookie( Key => $Param{SessionName} );
@@ -914,7 +915,7 @@ sub Run {
 
             $LayoutObject->Print(
                 Output => \$LayoutObject->CustomerLogin(
-                    Title => 'Login',
+                    Title   => 'Login',
                     Message =>
                         Translatable('This e-mail address already exists. Please log in or reset your password.'),
                     UserTitle     => $GetParams{UserTitle},
@@ -940,9 +941,9 @@ sub Run {
             if ($@) {
                 $Kernel::OM->Get('Kernel::System::Log')->Log(
                     Priority => 'error',
-                    Message =>
+                    Message  =>
                         $LayoutObject->{LanguageObject}->Translate(
-                        'The customer panel mail address whitelist contains the invalid regular expression $WhitelistEntry, please check and correct it.'
+                            'The customer panel mail address whitelist contains the invalid regular expression $WhitelistEntry, please check and correct it.'
                         ),
                 );
             }
@@ -956,9 +957,9 @@ sub Run {
             if ($@) {
                 $Kernel::OM->Get('Kernel::System::Log')->Log(
                     Priority => 'error',
-                    Message =>
+                    Message  =>
                         $LayoutObject->{LanguageObject}->Translate(
-                        'The customer panel mail address blacklist contains the invalid regular expression $BlacklistEntry, please check and correct it.'
+                            'The customer panel mail address blacklist contains the invalid regular expression $BlacklistEntry, please check and correct it.'
                         ),
                 );
             }
@@ -977,7 +978,7 @@ sub Run {
 
             $LayoutObject->Print(
                 Output => \$LayoutObject->CustomerLogin(
-                    Title => 'Login',
+                    Title   => 'Login',
                     Message =>
                         Translatable('This email address is not allowed to register. Please contact support staff.'),
                     UserTitle     => $GetParams{UserTitle},
@@ -1234,7 +1235,7 @@ sub Run {
             # show login
             $LayoutObject->Print(
                 Output => \$LayoutObject->CustomerLogin(
-                    Title => 'Login',
+                    Title   => 'Login',
                     Message =>
                         $LayoutObject->{LanguageObject}->Translate( $SessionObject->SessionIDErrorMessage() ),
                     %Param,
@@ -1281,7 +1282,7 @@ sub Run {
             my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
             $Kernel::OM->Get('Kernel::System::Log')->Log(
                 Priority => 'error',
-                Message =>
+                Message  =>
                     "Module Kernel::Modules::$Param{Action} not registered in Kernel/Config.pm!",
             );
             $LayoutObject->CustomerFatalError(
@@ -1491,33 +1492,50 @@ sub Run {
         # ->Run $Action with $FrontendObject
         $LayoutObject->Print( Output => \$FrontendObject->Run() );
 
-        # log request time
+        # log request time for AdminPerformanceLog
         if ( $ConfigObject->Get('PerformanceLog') ) {
-            if ( ( !$QueryString && $Param{Action} ) || $QueryString !~ /Action=/ ) {
-                $QueryString = 'Action=' . $Param{Action} . ';Subaction=' . $Param{Subaction};
-            }
             my $File = $ConfigObject->Get('PerformanceLog::File');
 
-            if ( open my $Out, '>>', $File ) {
-                print $Out time()
-                    . '::Customer::'
-                    . ( time() - $Self->{PerformanceLogStart} )
-                    . "::$UserData{UserLogin}::$QueryString\n";
-                close $Out;
-                $Kernel::OM->Get('Kernel::System::Log')->Log(
-                    Priority => 'debug',
-                    Message  => 'Response::Customer: '
-                        . ( time() - $Self->{PerformanceLogStart} )
-                        . "s taken (URL:$QueryString:$UserData{UserLogin})",
-                );
+            # Write to PerformanceLog file only if it is smaller than size limit (see bug#14747).
+            if ( -s $File < ( 1024 * 1024 * $ConfigObject->Get('PerformanceLog::FileMax') ) ) {
+                if ( open my $Out, '>>', $File ) {    ## no critic qw(OTOBO::ProhibitOpen)
+
+                    # a fallback for the query string when the action is missing
+                    if ( ( !$QueryString && $Param{Action} ) || $QueryString !~ /Action=/ ) {
+                        $QueryString = 'Action=' . $Param{Action} . ';Subaction=' . $Param{Subaction};
+                    }
+
+                    my $Now = Time::HiRes::time();
+                    print $Out join '::',
+                        $Now,
+                        'Customer',
+                        ( $Now - $Self->{PerformanceLogStart} ),
+                        $UserData{UserLogin},    # not used in the AdminPerformanceLog frontend
+                        "$QueryString\n";
+                    close $Out;
+
+                    $Kernel::OM->Get('Kernel::System::Log')->Log(
+                        Priority => 'debug',
+                        Message  => 'Response::Customer: '
+                            . ( $Now - $Self->{PerformanceLogStart} )
+                            . "s taken (URL:$QueryString:$UserData{UserLogin})",
+                    );
+                }
+                else {
+                    $Kernel::OM->Get('Kernel::System::Log')->Log(
+                        Priority => 'error',
+                        Message  => "Can't write $File: $!",
+                    );
+                }
             }
             else {
                 $Kernel::OM->Get('Kernel::System::Log')->Log(
                     Priority => 'error',
-                    Message  => "Can't write $File: $!",
+                    Message  => "PerformanceLog file '$File' is too large, you need to reset it in PerformanceLog page!",
                 );
             }
         }
+
         return 1;
     }
 
@@ -1532,10 +1550,12 @@ sub Run {
             %Data,
         },
     );
+
     my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
     $LayoutObject->CustomerFatalError(
         Comment => Translatable('Please contact the administrator.'),
     );
+
     return;
 }
 
