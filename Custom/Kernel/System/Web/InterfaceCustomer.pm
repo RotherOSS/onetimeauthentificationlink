@@ -2,9 +2,9 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2022 Rother OSS GmbH, https://otobo.de/
+# Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 101d09455d8b257aaa0fa99a56dc5188e90580f5 - Kernel/System/Web/InterfaceCustomer.pm
+# $origin: otobo - c14ca55a8b1d3d686e803c1398813b83d22091e5 - Kernel/System/Web/InterfaceCustomer.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -1053,6 +1053,29 @@ sub Content {    ## no critic qw(Subroutines::RequireFinalReturn)
             );
 
             if ( $PreAuth && $PreAuth->{RedirectURL} ) {
+
+                if ( $ConfigObject->Get('SessionUseCookie') ) {
+
+                    # always set a cookie, so that
+                    # we know already if the browser supports cookies.
+                    # ( the session cookie isn't available at that time ).
+
+                    my $Expires = '+' . $ConfigObject->Get('SessionMaxTime') . 's';
+                    if ( !$ConfigObject->Get('SessionUseCookieAfterBrowserClose') ) {
+                        $Expires = '';
+                    }
+
+                    # set a cookie tentatively for checking cookie support
+                    $LayoutObject->SetCookie(
+                        Key      => 'OTOBOBrowserHasCookie',
+                        Value    => 1,
+                        Expires  => $Expires,
+                        Path     => $ConfigObject->Get('ScriptAlias'),
+                        Secure   => $CookieSecureAttribute,
+                        HttpOnly => 1,
+                    );
+                }
+
                 $LayoutObject->Redirect(
                     ExtURL => $PreAuth->{RedirectURL},
                 );    # throws a Kernel::System::Web::Exception
@@ -1178,6 +1201,29 @@ sub Content {    ## no critic qw(Subroutines::RequireFinalReturn)
                 );
 
                 if ( $PreAuth && $PreAuth->{RedirectURL} ) {
+
+                    if ( $ConfigObject->Get('SessionUseCookie') ) {
+
+                        # always set a cookie, so that
+                        # we know already if the browser supports cookies.
+                        # ( the session cookie isn't available at that time ).
+
+                        my $Expires = '+' . $ConfigObject->Get('SessionMaxTime') . 's';
+                        if ( !$ConfigObject->Get('SessionUseCookieAfterBrowserClose') ) {
+                            $Expires = '';
+                        }
+
+                        # set a cookie tentatively for checking cookie support
+                        $LayoutObject->SetCookie(
+                            Key      => 'OTOBOBrowserHasCookie',
+                            Value    => 1,
+                            Expires  => $Expires,
+                            Path     => $ConfigObject->Get('ScriptAlias'),
+                            Secure   => $CookieSecureAttribute,
+                            HttpOnly => 1,
+                        );
+                    }
+
                     $LayoutObject->Redirect(
                         ExtURL => $PreAuth->{RedirectURL},
                     );    # throws a Kernel::System::Web::Exception

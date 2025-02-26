@@ -2,9 +2,9 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2022 Rother OSS GmbH, https://otobo.de/
+# Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - e894aef610208fdc401a4df814ca59658292fbba - Kernel/System/TemplateGenerator.pm
+# $origin: otobo - c14ca55a8b1d3d686e803c1398813b83d22091e5 - Kernel/System/TemplateGenerator.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -50,11 +50,11 @@ our @ObjectDependencies = (
 
 =head1 NAME
 
-Kernel::System::TemplateGenerator - signature lib
+Kernel::System::TemplateGenerator - template generator lib
 
 =head1 DESCRIPTION
 
-All signature functions.
+All template generator functions.
 
 =head1 PUBLIC INTERFACE
 
@@ -353,14 +353,9 @@ sub Sender {
         }
     }
 
-    # prepare realname quote
-    if ( $Address{RealName} =~ /([.]|,|@|\(|\)|:)/ && $Address{RealName} !~ /^("|')/ ) {
-        $Address{RealName} =~ s/"//g;    # remove any quotes that are already present
-        $Address{RealName} = '"' . $Address{RealName} . '"';
-    }
-    my $Sender = "$Address{RealName} <$Address{Email}>";
-
-    return $Sender;
+    # Format sender realname and address conformant to RFC 5322. This is relevant when the real name contain commas
+    # or other special symbols.
+    return Mail::Address->new( $Address{RealName}, $Address{Email} )->format();
 }
 
 =head2 Template()
