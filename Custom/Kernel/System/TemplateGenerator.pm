@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 4d5e4721b9eb96b3d2b50674a17131c8c04da6dc - Kernel/System/TemplateGenerator.pm
+# $origin: otobo - ada85dafd597ad986588fd356523cedda4d39d27 - Kernel/System/TemplateGenerator.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -108,11 +108,11 @@ sub Salutation {
     my ( $Self, %Param ) = @_;
 
     # check needed stuff
-    for my $Needed (qw(TicketID Data UserID)) {
-        if ( !$Param{$Needed} ) {
+    for (qw(TicketID Data UserID)) {
+        if ( !$Param{$_} ) {
             $Kernel::OM->Get('Kernel::System::Log')->Log(
                 Priority => 'error',
-                Message  => "Need $Needed!"
+                Message  => "Need $_!"
             );
             return;
         }
@@ -205,13 +205,12 @@ sub Signature {
     my ( $Self, %Param ) = @_;
 
     # check needed stuff
-    for my $Needed (qw(Data UserID)) {
-        if ( !$Param{$Needed} ) {
+    for (qw(Data UserID)) {
+        if ( !$Param{$_} ) {
             $Kernel::OM->Get('Kernel::System::Log')->Log(
                 Priority => 'error',
-                Message  => "Need $Needed!"
+                Message  => "Need $_!"
             );
-
             return;
         }
     }
@@ -293,8 +292,8 @@ sub Signature {
 generate sender address (FROM string) for emails
 
     my $Sender = $TemplateGeneratorObject->Sender(
-        QueueID => 123,
-        UserID  => 123,
+        QueueID    => 123,
+        UserID     => 123,
     );
 
 returns:
@@ -311,13 +310,12 @@ sub Sender {
     my ( $Self, %Param ) = @_;
 
     # check needed stuff
-    for my $Needed (qw( UserID QueueID)) {
-        if ( !$Param{$Needed} ) {
+    for (qw( UserID QueueID)) {
+        if ( !$Param{$_} ) {
             $Kernel::OM->Get('Kernel::System::Log')->Log(
                 Priority => 'error',
-                Message  => "Need $Needed!"
+                Message  => "Need $_!"
             );
-
             return;
         }
     }
@@ -382,7 +380,7 @@ sub Sender {
 generate template
 
     my $Template = $TemplateGeneratorObject->Template(
-        TemplateID => 123,
+        TemplateID => 123
         TicketID   => 123,                  # Optional
         Data       => $ArticleHashRef,      # Optional
         UserID     => 123,
@@ -390,7 +388,7 @@ generate template
 
 Returns:
 
-    $Template => 'Some text';
+    $Template =>  'Some text';
 
 =cut
 
@@ -398,19 +396,17 @@ sub Template {
     my ( $Self, %Param ) = @_;
 
     # check needed stuff
-    for my $Needed (qw(TemplateID UserID)) {
-        if ( !$Param{$Needed} ) {
+    for (qw(TemplateID UserID)) {
+        if ( !$Param{$_} ) {
             $Kernel::OM->Get('Kernel::System::Log')->Log(
                 Priority => 'error',
-                Message  => "Need $Needed!"
+                Message  => "Need $_!"
             );
             return;
         }
     }
 
-    my $StandardTemplateObject = $Kernel::OM->Get('Kernel::System::StandardTemplate');
-
-    my %Template = $StandardTemplateObject->StandardTemplateGet(
+    my %Template = $Kernel::OM->Get('Kernel::System::StandardTemplate')->StandardTemplateGet(
         ID => $Param{TemplateID},
     );
 
@@ -517,10 +513,10 @@ sub Template {
 generate internal or external notes
 
     my $GenericAgentArticle = $TemplateGeneratorObject->GenericAgentArticle(
-        Notification => $NotificationDataHashRef,
-        TicketID     => 123,
-        UserID       => 123,
-        Data         => $ArticleHashRef,             # Optional
+        Notification    => $NotificationDataHashRef,
+        TicketID        => 123,
+        UserID          => 123,
+        Data            => $ArticleHashRef,             # Optional
     );
 
 =cut
@@ -529,11 +525,11 @@ sub GenericAgentArticle {
     my ( $Self, %Param ) = @_;
 
     # check needed stuff
-    for my $Needed (qw(TicketID Notification UserID)) {
-        if ( !$Param{$Needed} ) {
+    for (qw(TicketID Notification UserID)) {
+        if ( !$Param{$_} ) {
             $Kernel::OM->Get('Kernel::System::Log')->Log(
                 Priority => 'error',
-                Message  => "Need $Needed!"
+                Message  => "Need $_!"
             );
             return;
         }
@@ -643,11 +639,11 @@ sub Attributes {
     my ( $Self, %Param ) = @_;
 
     # check needed stuff
-    for my $Needed (qw(TicketID Data UserID)) {
-        if ( !$Param{$Needed} ) {
+    for (qw(TicketID Data UserID)) {
+        if ( !$Param{$_} ) {
             $Kernel::OM->Get('Kernel::System::Log')->Log(
                 Priority => 'error',
-                Message  => "Need $Needed!"
+                Message  => "Need $_!"
             );
 
             return;
@@ -713,13 +709,12 @@ sub AutoResponse {
     my ( $Self, %Param ) = @_;
 
     # check needed stuff
-    for my $Needed (qw(TicketID AutoResponseType OrigHeader UserID)) {
-        if ( !$Param{$Needed} ) {
+    for (qw(TicketID AutoResponseType OrigHeader UserID)) {
+        if ( !$Param{$_} ) {
             $Kernel::OM->Get('Kernel::System::Log')->Log(
                 Priority => 'error',
-                Message  => "Need $Needed!"
+                Message  => "Need $_!"
             );
-
             return;
         }
     }
@@ -760,11 +755,11 @@ sub AutoResponse {
     if (@ArticleList) {
         my %Article = $ArticleObject->BackendForArticle( %{ $ArticleList[0] } )->ArticleGet( %{ $ArticleList[0] } );
 
-        for my $Key (qw(From To Cc Subject Body)) {
-            if ( !$Param{OrigHeader}->{$Key} ) {
-                $Param{OrigHeader}->{$Key} = $Article{$Key} || '';
+        for (qw(From To Cc Subject Body)) {
+            if ( !$Param{OrigHeader}->{$_} ) {
+                $Param{OrigHeader}->{$_} = $Article{$_} || '';
             }
-            chomp $Param{OrigHeader}->{$Key};
+            chomp $Param{OrigHeader}->{$_};
         }
     }
 
@@ -789,9 +784,9 @@ sub AutoResponse {
     }
 
     # fill up required attributes
-    for my $Key (qw(Subject Body)) {
-        if ( !$Param{OrigHeader}->{$Key} ) {
-            $Param{OrigHeader}->{$Key} = "No $Key";
+    for (qw(Subject Body)) {
+        if ( !$Param{OrigHeader}->{$_} ) {
+            $Param{OrigHeader}->{$_} = "No $_";
         }
     }
 
@@ -1195,10 +1190,6 @@ sub NotificationEvent {
 
 =begin Internal:
 
-=head2 _Replace()
-
-replace the placeholders in the text
-
 =cut
 
 sub _Replace {
@@ -1226,7 +1217,6 @@ sub _Replace {
         my $MailToHref        = $1;
         my $MailToHrefContent = $2;
 
-        # Nested s///egx!
         $MailToHrefContent =~ s{
             ((?:subject|body)=)(.+?)("|&)
         }
@@ -2074,6 +2064,7 @@ sub _RemoveUnSupportedTag {
     $Param{Text} =~ s/$NotSupportedTag/-/gi;
 
     return $Param{Text};
+
 }
 
 =head2 _MaskSensitiveValue()
@@ -2086,7 +2077,7 @@ Mask sensitive value, i.e. a password, a security token, etc.
         IsConfig => 1,                  # (optional) Whether the value is a config option, default: 0.
     );
 
-Returns masked value in case the key is matched:
+Returns masked value, in case the key is matched:
 
    $MaskedValue = 'xxx';
 
