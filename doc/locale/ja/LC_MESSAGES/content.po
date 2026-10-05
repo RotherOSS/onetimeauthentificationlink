@@ -4,141 +4,153 @@
 # Guide package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-10.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-08 11:08+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2026-10-05 07:41+0000\n"
+"Last-Translator: Kozo Sakurai <sakurai@io-architect.com>\n"
+"Language-Team: Japanese <http://translate.otobo.org/projects/otobo-10-1/"
+"addons/manuals/onetimeauthentificationlink-documentation/ja/>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.4.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2026.9\n"
 
 #: ../content/index.rst:5
 msgid "Contents"
-msgstr ""
+msgstr "目次"
 
 #: ../content/index.rst:10
 msgid "Description"
-msgstr ""
+msgstr "説明"
 
 #: ../content/index.rst:11
 msgid ""
 "Automatically creates customer users and gives them access via one time "
 "authentification tokens."
 msgstr ""
+"顧客ユーザーを自動的に作成し、ワンタイム認証トークンによるアクセスを付与しま"
+"す。"
 
 #: ../content/index.rst:14
 msgid "System requirements"
-msgstr ""
+msgstr "システム要件"
 
 #: ../content/index.rst:17
 msgid "Framework"
-msgstr ""
+msgstr "フレームワーク"
 
 #: ../content/index.rst:18
 msgid "OTOBO 10.1.x"
-msgstr ""
+msgstr "OTOBO 10.1.x"
 
 #: ../content/index.rst:21
 msgid "Packages"
-msgstr ""
+msgstr "パッケージ"
 
 #: ../content/index.rst:22 ../content/index.rst:26
 msgid "\\-"
-msgstr ""
+msgstr "\\-"
 
 #: ../content/index.rst:25
 msgid "Third-party software"
-msgstr ""
+msgstr "サードパーティ製ソフトウェア"
 
 #: ../content/index.rst:29
 msgid "Usage"
-msgstr ""
+msgstr "使い方"
 
 #: ../content/index.rst:32
 msgid "Setup"
-msgstr ""
+msgstr "セットアップ"
 
 #: ../content/index.rst:35
 msgid "Configuration Reference"
-msgstr ""
+msgstr "設定リファレンス"
 
 #: ../content/index.rst:38
 msgid "Core::Auth::Customer"
-msgstr ""
+msgstr "Core::Auth::Customer"
 
 #: ../content/index.rst:41
 msgid "OneTimeAuth::CustomerErrorMessageRefreshFailed"
-msgstr ""
+msgstr "OneTimeAuth::CustomerErrorMessageRefreshFailed"
 
 #: ../content/index.rst:42
 msgid ""
 "The message which will be sent to the customer if a link could not be "
 "generated."
-msgstr ""
+msgstr "リンクを生成できなかった場合に顧客に送信されるメッセージ。"
 
 #: ../content/index.rst:45
 msgid "OneTimeAuth::AccessDaysAfterClose"
-msgstr ""
+msgstr "OneTimeAuth::AccessDaysAfterClose"
 
 #: ../content/index.rst:46
 msgid ""
 "The number of days customer users can use direct links to open tickets after "
 "they are closed."
 msgstr ""
+"チケットがクローズされた後も、顧客ユーザーが直接リンクを使ってチケットを開け"
+"る日数。"
 
 #: ../content/index.rst:49
 msgid "OneTimeAuth::CustomerErrorMessageNewLink"
-msgstr ""
+msgstr "OneTimeAuth::CustomerErrorMessageNewLink"
 
 #: ../content/index.rst:50
 msgid ""
 "The message which the customer user will see if a new one is sent to his "
 "email address."
 msgstr ""
+"新しいリンクがメールアドレスに送信された場合に、顧客ユーザーに表示される"
+"メッセージ。"
 
 #: ../content/index.rst:53
 msgid "OneTimeAuth::TokenRefreshNotificationID"
-msgstr ""
+msgstr "OneTimeAuth::TokenRefreshNotificationID"
 
 #: ../content/index.rst:54
 msgid ""
 "Send the text of a notification to the customer user if he refreshs his "
 "token."
 msgstr ""
+"顧客ユーザーがトークンを更新した場合に、通知のテキストを顧客ユーザーに送信し"
+"ます。"
 
 #: ../content/index.rst:57
 msgid "OneTimeAuth::CustomerErrorMessageLinkExpired"
-msgstr ""
+msgstr "OneTimeAuth::CustomerErrorMessageLinkExpired"
 
 #: ../content/index.rst:58
 msgid ""
 "The message which the customer user will see if he uses an invalid token."
-msgstr ""
+msgstr "顧客ユーザーが無効なトークンを使用した場合に表示されるメッセージ。"
 
 #: ../content/index.rst:61
 msgid "OneTimeAuth::CustomerErrorMessageWrongLink"
-msgstr ""
+msgstr "OneTimeAuth::CustomerErrorMessageWrongLink"
 
 #: ../content/index.rst:62
 msgid ""
 "The message which the customer user will see if he uses an old token with an "
 "active one already being present."
 msgstr ""
+"有効なトークンがすでに存在する状態で、顧客ユーザーが古いトークンを使用した場"
+"合に表示されるメッセージ。"
 
 #: ../content/index.rst:65
 msgid "Core::Email::PostMaster"
-msgstr ""
+msgstr "Core::Email::PostMaster"
 
 #: ../content/index.rst:68
 msgid "PostMaster::PreFilterModule###000-CreateCustomerUser"
-msgstr ""
+msgstr "PostMaster::PreFilterModule###000-CreateCustomerUser"
 
 #: ../content/index.rst:69
 msgid ""
@@ -150,45 +162,55 @@ msgid ""
 "dynamic field of the type checkbox, it will be set to checked for tickets "
 "created by customer users from this backend."
 msgstr ""
+"送信者のメールアドレスに対応する顧客ユーザーが存在しない場合に、特定の"
+"バックエンドに CustomerUser を作成します。CustomerHeaderSpoofProtection は、"
+"なりすましを防ぐため、メールアドレスに対応する顧客ユーザーが存在する場合に X-"
+"OTOBO-Customer ヘッダーを設定（必要に応じて上書き）します。"
+"CustomerUserBackend は CustomerUser を作成するバックエンドを定義します。"
+"SetCheckBoxName にチェックボックスタイプのダイナミックフィールドの名前を設定"
+"すると、このバックエンドの顧客ユーザーが作成したチケットでそのフィールドが"
+"チェック済みに設定されます。"
 
 #: ../content/index.rst:72
 msgid "Daemon::SchedulerCronTaskManager::Task"
-msgstr ""
+msgstr "Daemon::SchedulerCronTaskManager::Task"
 
 #: ../content/index.rst:75
 msgid "Daemon::SchedulerCronTaskManager::Task###DeleteExpiredOTATokens"
-msgstr ""
+msgstr "Daemon::SchedulerCronTaskManager::Task###DeleteExpiredOTATokens"
 
 #: ../content/index.rst:76
 msgid "Deletes OTA Tokens of closed tickets."
-msgstr ""
+msgstr "クローズされたチケットの OTA トークンを削除します。"
 
 #: ../content/index.rst:79
 msgid "About"
-msgstr ""
+msgstr "概要"
 
 #: ../content/index.rst:82
 msgid "Contact"
-msgstr ""
+msgstr "連絡先"
 
 #: ../content/index.rst:83
 msgid "Rother OSS GmbH"
-msgstr ""
+msgstr "Rother OSS GmbH"
 
 #: ../content/index.rst:84
 msgid "Email: hello@otobo.de"
-msgstr ""
+msgstr "メール: hello@otobo.de"
 
 #: ../content/index.rst:85
 msgid "Web: https://otobo.de"
-msgstr ""
+msgstr "Web: https://otobo.de"
 
 #: ../content/index.rst:88
 msgid "Version"
-msgstr ""
+msgstr "バージョン"
 
 #: ../content/index.rst:89
 msgid ""
 "Author: |doc-vendor| / Version: |doc-version| / Date of release: |doc-"
 "datestamp|"
 msgstr ""
+"作成者: |doc-vendor| / バージョン: |doc-version| / リリース日: |doc-"
+"datestamp|"
