@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-11 07:23+0000\n"
-"PO-Revision-Date: 2026-09-03 18:41+0000\n"
+"PO-Revision-Date: 2026-10-29 19:41+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <http://translate.otobo.org/projects/otobo-11-0/"
 "addons/manuals/onetimeauthentificationlink-documentation/hu/>\n"
@@ -179,11 +179,11 @@ msgstr "Rother OSS GmbH"
 
 #: ../content/index.rst:84
 msgid "Email: hello@otobo.de"
-msgstr ""
+msgstr "E-mail: hello@otobo.de"
 
 #: ../content/index.rst:85
 msgid "Web: https://otobo.de"
-msgstr ""
+msgstr "Web: https://otobo.de"
 
 #: ../content/index.rst:88
 msgid "Version"
