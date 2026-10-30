@@ -11,7 +11,7 @@ Sacrifice to Sphinx
 
 Description
 ===========
-Automatically creates customer users and gives them access via one time authentification tokens.
+Automatically creates customer users and gives them access via one time authentication tokens.
 
 System requirements
 ===================
@@ -54,7 +54,7 @@ The message which the customer user will see if a new one is sent to his email a
 
 OneTimeAuth::TokenRefreshNotificationID
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Send the text of a notification to the customer user if he refreshs his token.
+Send the text of a notification to the customer user if he refreshes his token.
 
 OneTimeAuth::CustomerErrorMessageLinkExpired
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -69,7 +69,7 @@ Core::Email::PostMaster
 
 PostMaster::PreFilterModule###000-CreateCustomerUser
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Create a CustomerUser in a specific backend if none exists for the sender email. CustomerHeaderSpoofProtection sets (and possibly overwrites) the X-OTOBO-Customer header if a customer user exists for an email address to prevent spoofing. CustomerUserBackend defines the backend in which the CustomerUser will be created, if SetCheckBoxName is set to the name of a dynamic field of the type checkbox, it will be set to checked for tickets created by customer users from this backend.
+Create a customer user in a specific backend if none exists for the sender email. “CustomerHeaderSpoofProtection” sets (and possibly overwrites) the X-OTOBO-Customer header if a customer user exists for an email address to prevent spoofing. “CustomerUserBackend” defines the backend in which the customer user will be created, if “SetCheckBoxName” is set to the name of a dynamic field of the type checkbox, it will be set to checked for tickets created by customer users from this backend.
 
 Daemon::SchedulerCronTaskManager::Task
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

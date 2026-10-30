@@ -36,14 +36,14 @@
         </Value>
     </Setting>
     <Setting Name="OneTimeAuth::TokenRefreshNotificationID" Required="0" Valid="0">
-        <Description Translatable="1">Send the text of a notification to the customer user if he refreshs his token.</Description>
+        <Description Translatable="1">Send the text of a notification to the customer user if he refreshes his token.</Description>
         <Navigation>Core::Auth::Customer</Navigation>
         <Value>
             <Item ValueType="String" ValueRegex="^\d*$">0</Item>
         </Value>
     </Setting>
     <Setting Name="PostMaster::PreFilterModule###000-CreateCustomerUser" Required="0" Valid="0">
-        <Description Translatable="1">Create a CustomerUser in a specific backend if none exists for the sender email. CustomerHeaderSpoofProtection sets (and possibly overwrites) the X-OTOBO-Customer header if a customer user exists for an email address to prevent spoofing. CustomerUserBackend defines the backend in which the CustomerUser will be created, if SetCheckBoxName is set to the name of a dynamic field of the type checkbox, it will be set to checked for tickets created by customer users from this backend.</Description>
+        <Description Translatable="1">Create a customer user in a specific backend if none exists for the sender email. “CustomerHeaderSpoofProtection” sets (and possibly overwrites) the X-OTOBO-Customer header if a customer user exists for an email address to prevent spoofing. “CustomerUserBackend” defines the backend in which the customer user will be created, if “SetCheckBoxName” is set to the name of a dynamic field of the type checkbox, it will be set to checked for tickets created by customer users from this backend.</Description>
         <Navigation>Core::Email::PostMaster</Navigation>
         <Value>
             <Hash>
