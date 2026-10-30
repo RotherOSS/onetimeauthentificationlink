@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-10.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-08 11:08+0000\n"
-"PO-Revision-Date: 2026-10-13 09:41+0000\n"
+"PO-Revision-Date: 2026-10-30 17:41+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <http://translate.otobo.org/projects/otobo-10-1/"
 "addons/manuals/onetimeauthentificationlink-documentation/hu/>\n"
@@ -73,41 +73,47 @@ msgstr "Beállítások hivatkozása"
 
 #: ../content/index.rst:38
 msgid "Core::Auth::Customer"
-msgstr ""
+msgstr "Core::Auth::Customer"
 
 #: ../content/index.rst:41
 msgid "OneTimeAuth::CustomerErrorMessageRefreshFailed"
-msgstr ""
+msgstr "OneTimeAuth::CustomerErrorMessageRefreshFailed"
 
 #: ../content/index.rst:42
 msgid ""
 "The message which will be sent to the customer if a link could not be "
 "generated."
 msgstr ""
+"Az az üzenet, amely akkor lesz elküldve az ügyfélnek, ha egy hivatkozást nem "
+"sikerült előállítani."
 
 #: ../content/index.rst:45
 msgid "OneTimeAuth::AccessDaysAfterClose"
-msgstr ""
+msgstr "OneTimeAuth::AccessDaysAfterClose"
 
 #: ../content/index.rst:46
 msgid ""
 "The number of days customer users can use direct links to open tickets after "
 "they are closed."
 msgstr ""
+"Azon napok száma, amíg az ügyfél-felhasználók használhatják a közvetlen "
+"hivatkozásokat a jegyek megnyitásához, miután azok le lettek zárva."
 
 #: ../content/index.rst:49
 msgid "OneTimeAuth::CustomerErrorMessageNewLink"
-msgstr ""
+msgstr "OneTimeAuth::CustomerErrorMessageNewLink"
 
 #: ../content/index.rst:50
 msgid ""
 "The message which the customer user will see if a new one is sent to his "
 "email address."
 msgstr ""
+"Az az üzenet, amelyet az ügyfél-felhasználó akkor fog látni, ha újat "
+"küldenek az e-mail-címére."
 
 #: ../content/index.rst:53
 msgid "OneTimeAuth::TokenRefreshNotificationID"
-msgstr ""
+msgstr "OneTimeAuth::TokenRefreshNotificationID"
 
 #: ../content/index.rst:54
 msgid ""
@@ -117,30 +123,34 @@ msgstr ""
 
 #: ../content/index.rst:57
 msgid "OneTimeAuth::CustomerErrorMessageLinkExpired"
-msgstr ""
+msgstr "OneTimeAuth::CustomerErrorMessageLinkExpired"
 
 #: ../content/index.rst:58
 msgid ""
 "The message which the customer user will see if he uses an invalid token."
 msgstr ""
+"Az az üzenet, amelyet az ügyfél-felhasználó akkor fog látni, ha érvénytelen "
+"tokent használ."
 
 #: ../content/index.rst:61
 msgid "OneTimeAuth::CustomerErrorMessageWrongLink"
-msgstr ""
+msgstr "OneTimeAuth::CustomerErrorMessageWrongLink"
 
 #: ../content/index.rst:62
 msgid ""
 "The message which the customer user will see if he uses an old token with an "
 "active one already being present."
 msgstr ""
+"Az az üzenet, amelyet az ügyfél-felhasználó akkor fog látni, ha régi tokent "
+"használ, miközben már létezik aktív is."
 
 #: ../content/index.rst:65
 msgid "Core::Email::PostMaster"
-msgstr ""
+msgstr "Core::Email::PostMaster"
 
 #: ../content/index.rst:68
 msgid "PostMaster::PreFilterModule###000-CreateCustomerUser"
-msgstr ""
+msgstr "PostMaster::PreFilterModule###000-CreateCustomerUser"
 
 #: ../content/index.rst:69
 msgid ""
@@ -155,15 +165,15 @@ msgstr ""
 
 #: ../content/index.rst:72
 msgid "Daemon::SchedulerCronTaskManager::Task"
-msgstr ""
+msgstr "Daemon::SchedulerCronTaskManager::Task"
 
 #: ../content/index.rst:75
 msgid "Daemon::SchedulerCronTaskManager::Task###DeleteExpiredOTATokens"
-msgstr ""
+msgstr "Daemon::SchedulerCronTaskManager::Task###DeleteExpiredOTATokens"
 
 #: ../content/index.rst:76
 msgid "Deletes OTA Tokens of closed tickets."
-msgstr ""
+msgstr "Törli a lezárt jegyek egyszer használatos hitelesítési tokenjeit."
 
 #: ../content/index.rst:79
 msgid "About"
